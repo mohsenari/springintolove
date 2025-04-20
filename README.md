@@ -173,7 +173,7 @@ gcloud compute ssh --project=your-project-id --zone=your-zone your-instance-name
 ```
 sudo apt-get update
 sudo apt-get install -y curl git
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
@@ -216,8 +216,8 @@ sudo apt-get install -y nodejs
    ```
    server {
        listen 80;
-       server_name your-domain.com www.your-domain.com;
-       
+       server_name springinto.love www.springinto.love;
+
        location / {
            proxy_pass http://localhost:3000;
            proxy_http_version 1.1;
@@ -236,13 +236,25 @@ sudo apt-get install -y nodejs
    sudo systemctl restart nginx
    ```
 
-7. Set up a domain name and SSL (optional)
+7. Connecting a Domain to Your VM Instance
    - Register a domain name if you don't have one
-   - Set up DNS records to point to your VM's external IP address
+   - Navigate to your domain registrar's DNS management page
+   - Create an A record pointing to your VM's external IP address:
+     - Type: A
+     - Name: @ (for root domain) or subdomain (e.g., www)
+     - Value: Your VM's external IP address (find this in GCP Console)
+     - TTL: 3600 (or as recommended by your registrar)
+   - Optionally, add a CNAME record to point www to your root domain:
+     - Type: CNAME
+     - Name: www
+     - Value: sprintinto.love
+     - TTL: 3600
+   - Wait for DNS propagation (can take up to 48 hours, but often completes within a few hours)
+   - Update your Nginx configuration to use your domain name
    - Install Certbot for free SSL certificates:
      ```
      sudo apt-get install -y certbot python3-certbot-nginx
-     sudo certbot --nginx -d your-domain.com -d www.your-domain.com
+     sudo certbot --nginx -d sprintinto.love -d www.sprintinto.love
      ```
 
 ### Setting up a Firewall Rule (if needed)
