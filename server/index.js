@@ -24,6 +24,7 @@ const db = new sqlite3.Database(path.join(__dirname, 'wedding.db'), (err) => {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
+        address TEXT NOT NULL UNIQUE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       (err) => {
@@ -45,8 +46,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/email', (req, res) => {
-  const { name, email } = req.body;
-
+  const { name, email, address } = req.body;
+  console.log(req.body);
   // Validate input
   if (!name || !email) {
     return res.status(400).json({ error: 'Name and email are required' });
@@ -59,8 +60,8 @@ app.post('/api/email', (req, res) => {
   }
 
   // Insert into database
-  const sql = 'INSERT INTO guests (name, email) VALUES (?, ?)';
-  db.run(sql, [name, email], function (err) {
+  const sql = 'INSERT INTO guests (name, email, address) VALUES (?, ?, ?)';
+  db.run(sql, [name, email, address], function (err) {
     if (err) {
       // Check for unique constraint violation
       if (err.message.includes('UNIQUE constraint failed')) {

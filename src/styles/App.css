@@ -1,8 +1,8 @@
 :root {
-  --gold: #d4af37;
+  --gold: #C89E42;
   --white: #ffffff;
   --pink: #ffb6c1;
-  --black: #333333;
+  --black: #000000;
   --light-pink: #ffecf0;
 }
 
@@ -13,13 +13,13 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  color: var(--black);
-  background-color: var(--white);
+  font-family: 'narrow repo', sans-serif;
+  color: var(--white);
+  background-color: var(--black);
 }
 
 a {
-  color: var(--black);
+  color: var(--white);
 }
 
 .app {
@@ -70,7 +70,9 @@ a {
 }
 
 .home {
-  background: linear-gradient(to bottom, var(--white), var(--light-pink));
+  /* background: linear-gradient(to bottom, var(--white), var(--light-pink)); */
+  background-color: black;
+  color: white;
   text-align: center;
   padding-top: 6rem;
 }
@@ -80,26 +82,27 @@ a {
 }
 
 .couple-image {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   object-fit: cover;
-  border: 5px solid var(--gold);
+  border: 3px solid var(--gold);
   margin-bottom: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .names {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Limelight', serif;
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--black);
+  color: var(--white);
 }
 
 .tagline {
-  font-size: 1.5rem;
-  color: var(--pink);
-  font-weight: 600;
+  font-family: 'Limelight';
+  font-size: 4.5rem;
+  color: var(--gold);
+  font-weight: 800;
   margin-bottom: 2rem;
 }
 
@@ -113,12 +116,13 @@ a {
 }
 
 .rsvp {
-  background-color: var(--white);
+  background-color: var(--black);
   border-top: 5px solid var(--gold);
+  padding-top: 0%;
 }
 
 .rsvp-form {
-  background-color: var(--light-pink);
+  background-color: var(--black);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -127,17 +131,17 @@ a {
 }
 
 .form-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'limelight', serif;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: var(--black);
+  color: var(--white);
   text-align: center;
 }
 
 .form-description {
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--black);
+  color: var(--white);
 }
 
 .form-group {
@@ -193,18 +197,24 @@ a {
   text-align: center;
 }
 
+.rose {
+  height: 228px;
+  width: 300px;
+  margin-top: -100px;
+}
+
 @media (max-width: 768px) {
   .names {
     font-size: 2rem;
   }
   
   .tagline {
-    font-size: 1.2rem;
+    font-size: 3rem;
   }
   
   .couple-image {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
   }
   
   .form-title {

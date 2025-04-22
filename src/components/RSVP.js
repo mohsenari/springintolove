@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 const RSVP = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: ''
+    email: '',
+    address: '',
   });
   const [message, setMessage] = useState({ text: '', type: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -15,22 +16,27 @@ const RSVP = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Basic validation
-    if (!formData.name || !formData.email) {
-      setMessage({ text: 'Please fill out all fields', type: 'error' });
+    if (!formData.name) {
+      setMessage({ text: 'Please fill out all required fields', type: 'error' });
       return;
     }
-    
+
+    if (!formData.email && !formData.address) {
+      setMessage({ text: 'Please put either email or mailing address', type: 'error' });
+      return;
+    }
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if (!emailRegex.test(formData.email) && formData.address === "") {
       setMessage({ text: 'Please enter a valid email address', type: 'error' });
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('/api/email', {
         method: 'POST',
@@ -39,9 +45,9 @@ const RSVP = () => {
         },
         body: JSON.stringify(formData),
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
         setMessage({ text: 'Thank you! We\'ll send you an invitation soon.', type: 'success' });
         setFormData({ name: '', email: '' });
@@ -57,10 +63,13 @@ const RSVP = () => {
 
   return (
     <section id="rsvp" className="section rsvp">
+      <div className="rose">
+        <img src='images/rose2.svg' width={300} height={228} />
+      </div>
       <div className="rsvp-form">
         <h2 className="form-title">Save the Date</h2>
         <p className="form-description">Please provide your email to get an invitation in your inbox</p>
-        
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name" className="form-label">Name</label>
@@ -74,7 +83,20 @@ const RSVP = () => {
               placeholder="Your Name"
             />
           </div>
-          
+
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">Mailing Address</label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Your mailing address"
+            />
+          </div>
+
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -87,12 +109,12 @@ const RSVP = () => {
               placeholder="Your Email"
             />
           </div>
-          
+
           <button type="submit" className="submit-btn" disabled={isSubmitting}>
             {isSubmitting ? 'Sending...' : 'Submit'}
           </button>
         </form>
-        
+
         {message.text && (
           <p className={message.type === 'success' ? 'success-message' : 'error-message'}>
             {message.text}
