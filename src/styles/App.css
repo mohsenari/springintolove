@@ -55,8 +55,8 @@ a {
 }
 
 .nav-link:hover {
-  color: var(--pink);
-  background-color: var(--light-pink);
+  color: var(--gold);
+  background-color: var(--white);
 }
 
 .section {
@@ -131,7 +131,7 @@ a {
 }
 
 .form-title {
-  font-family: 'limelight', serif;
+  font-family: 'Limelight', serif;
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: var(--white);
@@ -165,7 +165,7 @@ a {
 
 .form-input:focus {
   outline: none;
-  border-color: var(--pink);
+  border-color: var(--gold);
 }
 
 .submit-btn {
@@ -182,7 +182,7 @@ a {
 }
 
 .submit-btn:hover {
-  background-color: var(--pink);
+  background-color: var(--gold);
 }
 
 .success-message {
@@ -200,7 +200,7 @@ a {
 .rose {
   height: 228px;
   width: 300px;
-  margin-top: -100px;
+  margin-top: -50px;
 }
 
 @media (max-width: 768px) {
