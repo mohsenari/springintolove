@@ -49,7 +49,7 @@ const RSVP = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({ text: 'Thank you! We\'ll send you an invitation soon.', type: 'success' });
+        setMessage({ text: 'Thank you! We\'ll send you an invitation later this year.', type: 'success' });
         setFormData({ name: '', email: '' });
       } else {
         setMessage({ text: data.error || 'Something went wrong. Please try again.', type: 'error' });
