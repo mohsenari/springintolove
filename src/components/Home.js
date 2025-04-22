@@ -13,12 +13,11 @@ const Home = () => {
             className="couple-image"
           />
         </div>
-
+        <p className="detail">The wedding of</p>
         <h1 className="names">Mohsen Ansari <br />&<br /> Emily Elizabeth Smith</h1>
 
         <div className="wedding-details">
           <p className="detail"><strong>Date:</strong> March 20, 2026</p>
-          {/* <p className="detail"><strong>Ceremony:</strong> 2:00 PM</p> */}
           <p className="detail"><strong>Venue:</strong> The Eglinton Grand</p>
           <a href="https://maps.app.goo.gl/yFKeUseKCx4LwL3dA" >
             <p className="detail">400 Eglinton Ave W, Toronto, ON M5N 1A2</p>
