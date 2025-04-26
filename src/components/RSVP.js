@@ -68,7 +68,7 @@ const RSVP = () => {
       </div>
       <div className="rsvp-form">
         <h2 className="form-title">Save the Date</h2>
-        <p className="form-description">Please provide your email to get an invitation in your inbox</p>
+        <p className="form-description">Please provide your email or mailing address to receive an invite.</p>
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
