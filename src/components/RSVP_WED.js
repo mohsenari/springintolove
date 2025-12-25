@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import names from './names';
 
 const RSVPWed = () => {
   const scrollToSection = (id) => {
@@ -19,20 +20,9 @@ const RSVPWed = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredNames, setFilteredNames] = useState([]);
   const [showGuestSuggestions, setShowGuestSuggestions] = useState(false);
-
-  // Predefined list of names for autocomplete
-  const predefinedNames = [
-    'Joan Gaylord',
-    'Mohammed Franecki',
-    'Tichomír Gocníková',
-    'Kenzie',
-    'Mary Charow & Andres Munevar',
-    'Banafsheh Mehrazma',
-    'Lucille',
-    'Amir.Z',
-    'Johanne Saintelus',
-    'Oliver Kanter'
-  ];
+  const [selectedNames, setSelectedNames] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState({ text: '', type: '' });
 
   // Guest number options
   const guestNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -44,7 +34,7 @@ const RSVPWed = () => {
     // Handle autocomplete for name field
     if (name === 'name') {
       if (value.length > 0) {
-        const filtered = predefinedNames.filter(n =>
+        const filtered = names.filter(n =>
           n.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredNames(filtered);
@@ -56,8 +46,13 @@ const RSVPWed = () => {
   };
 
   const handleSuggestionClick = (name) => {
-    setFormData({ ...formData, name });
+    setSelectedNames([...selectedNames, name]);
+    setFormData({ ...formData, name: '' });
     setShowSuggestions(false);
+  };
+
+  const removeSelectedName = (indexToRemove) => {
+    setSelectedNames(selectedNames.filter((_, index) => index !== indexToRemove));
   };
 
   const handleGuestNumberClick = (num) => {
@@ -68,8 +63,11 @@ const RSVPWed = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Concatenate selected names
+    const concatenatedNames = selectedNames.join(', ');
+
     // Basic validation
-    if (!formData.name || !formData.email || !formData.attending || !formData.guests) {
+    if (!concatenatedNames || !formData.email || !formData.attending || !formData.guests) {
       setMessage({ text: 'Please fill out all required fields', type: 'error' });
       return;
     }
@@ -83,25 +81,46 @@ const RSVPWed = () => {
 
     setIsSubmitting(true);
 
+    // Create submission data with concatenated names
+    const submissionData = {
+      ...formData,
+      name: concatenatedNames,
+    };
+
     try {
       const response = await fetch('/api/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({ text: 'Thank you! Hope to see you at the wedding.', type: 'success' });
+        let successMessage = '';
+        if (formData.attending === "yes") {
+          successMessage = 'Thank you! Looking forward to seeing you at the wedding.';
+        } else if (formData.attending === "no") {
+          successMessage = 'Thank you for your response. We will miss you.';
+        }
+        setMessage({ text: successMessage, type: 'success' });
+        setPopupMessage({ text: successMessage, type: 'success' });
+        setShowPopup(true);
         setFormData({ name: '', email: '', guests: 1, attending: '' });
+        setSelectedNames([]);
       } else {
-        setMessage({ text: data.error || 'Something went wrong. Please try again.', type: 'error' });
+        const errorMessage = data.error || 'Something went wrong. Please try again.';
+        setMessage({ text: errorMessage, type: 'error' });
+        setPopupMessage({ text: errorMessage, type: 'error' });
+        setShowPopup(true);
       }
     } catch (error) {
-      setMessage({ text: 'Something went wrong. Please try again.', type: 'error' });
+      const errorMessage = 'Something went wrong. Please try again.';
+      setMessage({ text: errorMessage, type: 'error' });
+      setPopupMessage({ text: errorMessage, type: 'error' });
+      setShowPopup(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -109,6 +128,16 @@ const RSVPWed = () => {
 
   return (
     <section id="rsvp" className="section rsvp">
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className={`popup-content ${popupMessage.type}`}>
+            <p>{popupMessage.text}</p>
+            <button onClick={() => setShowPopup(false)} className="popup-close-btn">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div className="rose">
         <img src='images/rose2.svg' width={300} height={228} />
       </div>
@@ -121,7 +150,7 @@ const RSVPWed = () => {
             scrollToSection('faq');
           }}
           >FAQ page
-          </a> or message Liz at 647-389-9581
+          </a> or message Liz (Emily) at 647-389-9581
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -149,6 +178,22 @@ const RSVPWed = () => {
                   </li>
                 ))}
               </ul>
+            )}
+            {selectedNames.length > 0 && (
+              <div className="selected-names">
+                {selectedNames.map((name, index) => (
+                  <div key={index} className="selected-name-tag">
+                    <span>{name}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeSelectedName(index)}
+                      className="remove-name-btn"
+                    >
+                      <span className='selected-name-tag-x'>x</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
