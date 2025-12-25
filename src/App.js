@@ -1,7 +1,8 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import RSVP from './components/RSVP';
+import RSVPWed from './components/RSVP_WED';
+import FAQ from './components/faq';
 import './styles/App.css';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <div className="app">
       <Navbar />
       <Home />
-      <RSVP />
+      <RSVPWed />
+      <FAQ />
     </div>
   );
 }

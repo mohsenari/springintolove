@@ -104,6 +104,7 @@ a {
   color: var(--gold);
   font-weight: 800;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .wedding-details {
@@ -117,7 +118,7 @@ a {
 
 .rsvp {
   background-color: var(--black);
-  border-top: 5px solid var(--gold);
+  /* border-top: 5px solid var(--gold); */
   padding-top: 0%;
 }
 
@@ -220,4 +221,103 @@ a {
   .form-title {
     font-size: 1.5rem;
   }
+}
+/* FAQ section styles */
+.faq {
+  background-color: var(--black);
+  /* border-top: 5px solid var(--gold); */
+  padding-top: 0%;
+}
+
+.faq ul {
+  list-style: none;
+  font-size: 1.2rem;
+}
+
+.faq .question {
+  color: var(--gold);
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.faq .answer {
+  margin-bottom: 2rem;
+}
+
+#faq-link {
+  color: var(--gold);
+}
+
+/* Toggle switch styles for attending radio buttons */
+.toggle-container {
+  display: inline-flex;
+  position: relative;
+  background-color: #2a2a2a;
+  border-radius: 25px;
+  padding: 4px;
+  border: 2px solid var(--gold);
+  width: 200px;
+}
+
+.toggle-container input[type="radio"] {
+  display: none;
+}
+
+.toggle-label {
+  flex: 1;
+  text-align: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: var(--white);
+  font-weight: normal;
+  z-index: 1;
+}
+
+.toggle-label.active {
+  background-color: var(--gold);
+  color: var(--black);
+  font-weight: bold;
+}
+
+/* Autocomplete suggestions styles */
+.suggestions-container {
+  position: relative;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #000000;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(200, 158, 66, 0.3);
+}
+
+.suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  color: var(--white);
+  border-bottom: 1px solid #333333;
+  transition: background-color 0.2s;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #1a1a1a;
+  color: var(--gold);
 }

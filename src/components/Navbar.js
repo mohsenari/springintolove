@@ -11,9 +11,9 @@ const Navbar = () => {
   return (
     <nav className="nav">
       <div className="nav-links">
-        <a 
-          href="#home" 
-          className="nav-link" 
+        <a
+          href="#home"
+          className="nav-link"
           onClick={(e) => {
             e.preventDefault();
             scrollToSection('home');
@@ -21,15 +21,25 @@ const Navbar = () => {
         >
           Home
         </a>
-        <a 
-          href="#rsvp" 
-          className="nav-link" 
+        <a
+          href="#rsvp"
+          className="nav-link"
           onClick={(e) => {
             e.preventDefault();
             scrollToSection('rsvp');
           }}
         >
-          Save the Date
+          RSVP
+        </a>
+        <a
+          href="#faq"
+          className="nav-link"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('faq');
+          }}
+        >
+          FAQ
         </a>
       </div>
     </nav>

@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../dist')));
 
 // Initialize SQLite database
-const db = new sqlite3.Database(path.join(__dirname, 'wedding.db'), (err) => {
+const db = new sqlite3.Database(path.join(__dirname, 'rsvp.db'), (err) => {
   if (err) {
     console.error('Error connecting to the database:', err.message);
   } else {
@@ -23,8 +23,9 @@ const db = new sqlite3.Database(path.join(__dirname, 'wedding.db'), (err) => {
       `CREATE TABLE IF NOT EXISTS guests (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        email TEXT NOT NULL UNIQUE,
-        address TEXT NOT NULL UNIQUE,
+        guests INTEGER NOT NULL,
+        email TEXT NOT NULL,
+        attending TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )`,
       (err) => {
@@ -46,11 +47,11 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/email', (req, res) => {
-  const { name, email, address } = req.body;
+  const { name, email, guests, attending } = req.body;
   console.log(req.body);
   // Validate input
-  if (!name || !email) {
-    return res.status(400).json({ error: 'Name and email are required' });
+  if (!name || !email || !guests || !attending) {
+    return res.status(400).json({ error: 'all fields are required' });
   }
 
   // Basic email validation
@@ -60,13 +61,13 @@ app.post('/api/email', (req, res) => {
   }
 
   // Insert into database
-  const sql = 'INSERT INTO guests (name, email, address) VALUES (?, ?, ?)';
-  db.run(sql, [name, email, address], function (err) {
+  const sql = 'INSERT INTO guests (name, email, guests, attending) VALUES (?, ?, ?, ?)';
+  db.run(sql, [name, email, guests, attending], function (err) {
     if (err) {
       // Check for unique constraint violation
-      if (err.message.includes('UNIQUE constraint failed')) {
-        return res.status(409).json({ error: 'This email is already registered' });
-      }
+      // if (err.message.includes('UNIQUE constraint failed')) {
+      //   return res.status(409).json({ error: 'This email is already registered' });
+      // }
       console.error('Database error:', err.message);
       return res.status(500).json({ error: 'Failed to save your information' });
     }
