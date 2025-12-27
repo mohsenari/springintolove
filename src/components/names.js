@@ -11,6 +11,7 @@ const names = [
   "Marilyn Smith",
   "Jaqueline Lawrence",
   "Carl Hernes",
+  "Katie Ma",
   "Karen Hernes",
   "Johnathan Hernes",
   "Joanna Broadhurst",
