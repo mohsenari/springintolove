@@ -111,7 +111,7 @@ const names = [
   "Seung Hun Chung",
   "Nunu Ding",
   "Robert Miles",
-  "Theresa Miles",
+  "Teresa Miles",
   "Victoria Miles",
   "Rebecca Miles",
   "Genesis Giraldo",
