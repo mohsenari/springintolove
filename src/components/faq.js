@@ -17,7 +17,7 @@ const FAQ = () => {
           <li className="question"> Can I bring a plus one or my children? </li>
           <li className="answer"> It will be indicated on your invitation. But feel free to message us to confirm. </li>
           <li className="question"> What about food allergies and dietary restrictions? </li>
-          <li className="answer"> Please indicate your allergy or restriction with your name in the RSVP form. </li>
+          <li className="answer"> Please contact the bride at 647-389-9581 about food restrictions. </li>
           <li className="question"> Will there be a hotel block? </li>
           <li className="answer"> No, but we recommend hotels around Yonge street and Bloor street intersection. </li>
           <li className="question"> Is there a gift registry?</li>
