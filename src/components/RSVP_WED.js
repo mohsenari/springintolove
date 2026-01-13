@@ -154,6 +154,14 @@ const RSVPWed = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (formData.name.trim()) {
+                      handleSuggestionClick(formData.name.trim());
+                    }
+                  }
+                }}
                 className="form-input"
                 placeholder="Guest Name"
                 autoComplete="off"
