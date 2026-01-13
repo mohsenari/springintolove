@@ -170,6 +170,13 @@ a {
   border-color: var(--gold);
 }
 
+.form-input:read-only {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
+  opacity: 0.7;
+  caret-color: transparent;
+}
+
 .submit-btn {
   background-color: var(--gold);
   color: var(--white);
@@ -321,6 +328,28 @@ a {
 .suggestion-item:hover {
   background-color: #1a1a1a;
   color: var(--gold);
+}
+
+/* Add name button */
+.add-name-btn {
+  background-color: var(--gold);
+  color: var(--black);
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10%;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.add-name-btn:hover {
+  opacity: 0.8;
 }
 
 /* Selected names display */

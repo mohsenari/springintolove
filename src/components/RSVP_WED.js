@@ -19,13 +19,9 @@ const RSVPWed = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredNames, setFilteredNames] = useState([]);
-  const [showGuestSuggestions, setShowGuestSuggestions] = useState(false);
   const [selectedNames, setSelectedNames] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState({ text: '', type: '' });
-
-  // Guest number options
-  const guestNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,11 +49,6 @@ const RSVPWed = () => {
 
   const removeSelectedName = (indexToRemove) => {
     setSelectedNames(selectedNames.filter((_, index) => index !== indexToRemove));
-  };
-
-  const handleGuestNumberClick = (num) => {
-    setFormData({ ...formData, guests: num });
-    setShowGuestSuggestions(false);
   };
 
   const handleSubmit = async (e) => {
@@ -155,17 +146,31 @@ const RSVPWed = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group suggestions-container">
-            <label htmlFor="name" className="form-label">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="form-input"
-              placeholder="Your Name"
-              autoComplete="off"
-            />
+            <label htmlFor="name" className="form-label">Add Name(s)</label>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="form-input"
+                placeholder="Guest Name"
+                autoComplete="off"
+                style={{ flex: 1 }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  if (formData.name.trim()) {
+                    handleSuggestionClick(formData.name.trim());
+                  }
+                }}
+                className="add-name-btn"
+              >
+                +
+              </button>
+            </div>
             {showSuggestions && filteredNames.length > 0 && (
               <ul className="suggestions-list">
                 {filteredNames.map((name, index) => (
@@ -197,32 +202,17 @@ const RSVPWed = () => {
             )}
           </div>
 
-          <div className="form-group suggestions-container">
+          <div className="form-group">
             <label htmlFor="guests" className="form-label">Number of Guests</label>
             <input
               type="text"
               id="guests"
               name="guests"
-              value={formData.guests || ''}
-              onChange={handleChange}
-              onFocus={() => setShowGuestSuggestions(true)}
+              value={selectedNames.length}
+              readOnly
               className="form-input"
-              placeholder="1"
-              autoComplete="off"
+              placeholder="0"
             />
-            {showGuestSuggestions && (
-              <ul className="suggestions-list">
-                {guestNumbers.map((num) => (
-                  <li
-                    key={num}
-                    onClick={() => handleGuestNumberClick(num)}
-                    className="suggestion-item"
-                  >
-                    {num}
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
 
           <div className="form-group">
