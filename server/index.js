@@ -1,4 +1,6 @@
 const express = require('express');
+const Mailgun = require('mailgun.js');
+var FormData = require('form-data');
 const path = require('path');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
@@ -72,6 +74,7 @@ app.post('/api/email', (req, res) => {
       return res.status(500).json({ error: 'Failed to save your information' });
     }
 
+    sendSimpleMessage({ name, email, guests, attending });
     res.status(201).json({
       message: 'Successfully saved!',
       id: this.lastID
@@ -95,3 +98,30 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+
+// send notification email
+async function sendSimpleMessage({ name, email, guests, attending }) {
+  const mailgun = new Mailgun(FormData);
+  const mg = mailgun.client({
+    username: "api",
+    key: process.env.MAILGUN_API_KEY,
+  });
+  try {
+    const data = await mg.messages.create("mohsenansari.com", {
+      from: "Springintolove Notifications <postmaster@mohsenansari.com>",
+      to: ["Mohsen Ansari <mohsen@mailbox.org>", "emilylizsmith005@gmail.com"],
+      subject: "Someone new just RSVP'ed to the wedding website",
+      text: `
+Name: ${name} 
+Number of guests: ${guests}
+Attending: ${attending}
+Email: ${email}
+`,
+    });
+
+    console.log(data); // logs response data
+  } catch (error) {
+    console.log(error); //logs any error
+  }
+}
