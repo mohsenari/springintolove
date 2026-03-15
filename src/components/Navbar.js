@@ -22,14 +22,14 @@ const Navbar = () => {
           Home
         </a>
         <a
-          href="#rsvp"
+          href="/upload"
           className="nav-link"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection('rsvp');
-          }}
+        // onClick={(e) => {
+        //   e.preventDefault();
+        //   scrollToSection('rsvp');
+        // }}
         >
-          RSVP
+          Upload
         </a>
         <a
           href="#faq"
