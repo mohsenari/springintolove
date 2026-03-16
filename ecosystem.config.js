@@ -1,7 +1,8 @@
 module.exports = {
   apps: [{
-    name: "wedding-app",
+    name: "springintolove",
     script: "server/index.js",
+    cwd: "/home/m_ansari387/springintolove", // Update this to your actual project path on VM
     instances: 1,
     autorestart: true,
     watch: false,
