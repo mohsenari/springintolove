@@ -3,3 +3,5 @@ node_modules/
 dist/
 uploads/
 server/*.db
+.env
+server/upload-errors.log
