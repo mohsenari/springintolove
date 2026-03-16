@@ -21,7 +21,7 @@ const FAQ = () => {
           <li className="question"> Will there be a hotel block? </li>
           <li className="answer"> No, but we recommend hotels around Yonge street and Bloor street intersection. </li>
           <li className="question"> Is there a gift registry?</li>
-          <li className="answer"> No as we recently moved to a small apartment in Toronto. Monetary gifts are appreciated but not necessary.</li>
+          <li className="answer"> No as we recently moved to a small apartment in Toronto, however, monetary gifts are appreciated.</li>
           <li className="question"> Who made this amazing website?</li>
           <li className="answer"> Mohsen! Coded from scratch! No website builders or tools used ;)</li>
           <br /><br /><br /><br />
